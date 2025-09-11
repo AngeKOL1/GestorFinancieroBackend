@@ -1,0 +1,32 @@
+package com.example.restapp.GestorFinanciero.models;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name="fechaMeta")
+@EqualsAndHashCode
+public class FechaMeta {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idFechaMeta;
+    @Column(nullable = false)
+    private String mes;
+    @Column(nullable = false)
+    private String dia;
+    @Column(nullable = false)
+    private String hora;
+    @Column(nullable = false)
+    private LocalDate fechaTotal;
+
+    @OneToOne
+    @JoinColumn(name = "fechaMeta_id", nullable = false, unique = true)
+    private Meta meta;
+}

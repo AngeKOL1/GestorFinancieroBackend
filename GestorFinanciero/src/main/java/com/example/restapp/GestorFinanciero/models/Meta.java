@@ -40,4 +40,7 @@ public class Meta {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuarioMetas;
 
+    @OneToOne(mappedBy = "meta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private FechaMeta fechaMeta;
+
 }

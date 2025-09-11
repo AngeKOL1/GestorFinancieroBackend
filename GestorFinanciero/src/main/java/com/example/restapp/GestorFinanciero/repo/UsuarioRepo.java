@@ -4,4 +4,5 @@ import com.example.restapp.GestorFinanciero.models.Usuario;
 import jakarta.persistence.criteria.CriteriaBuilder;
 
 public interface UsuarioRepo extends IGenericRepo<Usuario, Integer>{
+    Usuario findOneByCorreo(String correo);
 }

@@ -28,6 +28,10 @@ public class Usuario {
     @Column(nullable = false)
     private String contrasena;
     @Column(nullable = false)
+    private String nombre;
+    @Column(nullable = false)
+    private String apellido;
+    @Column(nullable = false)
     private LocalDate fechaRegistro;
     @Column(nullable = false)
     private LocalDate ultConexion;
@@ -36,9 +40,9 @@ public class Usuario {
     @JoinColumn(name = "nivelUsuario_id", nullable = false)
     private NivelUsuario nivelUsuario;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Rol usuarioRol;
+    //Cambiar a muchos a muchos
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UsuarioRol> usuarioRoles = new HashSet<>();
 
     @OneToMany(mappedBy = "usuarioTransacciones", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaccion> transacciones = new ArrayList<>();

@@ -21,9 +21,12 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Integer idRol;
+    @Column
+    private String nombre;
     @Column(nullable = false)
     private String descripcion;
 
-    @OneToMany(mappedBy = "usuarioRol", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Usuario> usuarioRol = new HashSet<>();
+    //Cambiar a muchos a muchos
+    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UsuarioRol> usuarioRoles = new HashSet<>();
 }
