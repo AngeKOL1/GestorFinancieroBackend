@@ -4,6 +4,7 @@ import com.example.restapp.GestorFinanciero.models.Rol;
 import com.example.restapp.GestorFinanciero.models.Usuario;
 import com.example.restapp.GestorFinanciero.repo.UsuarioRepo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,11 +24,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
-        Usuario user = repo.findOneByCorreo(correo);
-
-        if (user == null) {
-            throw new UsernameNotFoundException("Username not found: " + correo);
-        }
+        Usuario user = repo.findByCorreo(correo)
+                .orElseThrow(() -> new UsernameNotFoundException("Correo not found: " + correo));
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         user.getUsuarioRoles().forEach(usuarioRol -> {
@@ -41,5 +39,7 @@ public class JwtUserDetailsService implements UserDetailsService {
                 authorities
         );
     }
+
+
 }
 

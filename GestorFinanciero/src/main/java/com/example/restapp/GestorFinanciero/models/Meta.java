@@ -18,7 +18,7 @@ public class Meta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idMeta;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String nombre;
     @Column(nullable = false)
     private Float montoActual;

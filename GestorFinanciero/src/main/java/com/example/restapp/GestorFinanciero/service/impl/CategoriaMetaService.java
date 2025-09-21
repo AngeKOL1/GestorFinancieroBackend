@@ -6,7 +6,9 @@ import com.example.restapp.GestorFinanciero.repo.IGenericRepo;
 import com.example.restapp.GestorFinanciero.service.ICategoriaMetaService;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class CategoriaMetaService extends GenericService<CategoriaMeta,Integer> implements ICategoriaMetaService {
     private final CategoriaMetaRepo repo;

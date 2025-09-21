@@ -17,7 +17,7 @@ public class Reporte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idReporte;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String tipo;
     @Column(nullable = false)
     private LocalDate fechaGeneracion;

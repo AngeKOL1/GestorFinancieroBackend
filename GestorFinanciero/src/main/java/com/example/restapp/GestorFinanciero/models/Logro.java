@@ -19,12 +19,12 @@ public class Logro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idLogro;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String nombre;
     @Column(nullable = false)
     private String descripcion;
     //Ajustable a cambios
-    @Column(nullable = false)
+    @Column(nullable = false , length = 500)
     private String urlIcono;
 
     @OneToMany(mappedBy = "logro", cascade = CascadeType.ALL, orphanRemoval = true)

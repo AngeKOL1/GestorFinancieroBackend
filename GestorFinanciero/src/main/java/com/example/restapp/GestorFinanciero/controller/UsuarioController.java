@@ -11,11 +11,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/usuarios")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class UsuarioController {
-    private IUsuarioService service;
+    private final IUsuarioService service;
     @GetMapping
     public ResponseEntity<List<Usuario>> findAll() throws Exception{
         List<Usuario> list = service.findAll();
@@ -27,8 +27,8 @@ public class UsuarioController {
         return ResponseEntity.ok(obj);
     }
     @PostMapping
-    public ResponseEntity<Usuario> save(@RequestBody Usuario publisher) throws Exception{
-        Usuario obj =  service.save(publisher);
+    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario) throws Exception{
+        Usuario obj =  service.save(usuario);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

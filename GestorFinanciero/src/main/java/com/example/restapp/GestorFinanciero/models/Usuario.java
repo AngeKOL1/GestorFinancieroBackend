@@ -1,5 +1,6 @@
 package com.example.restapp.GestorFinanciero.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,13 +24,13 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Integer id;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String correo;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     private String contrasena;
     @Column(nullable = false)
     private String nombre;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String apellido;
     @Column(nullable = false)
     private LocalDate fechaRegistro;
@@ -38,11 +39,13 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "nivelUsuario_id", nullable = false)
+    @JsonManagedReference
     private NivelUsuario nivelUsuario;
 
-    //Cambiar a muchos a muchos
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "usuario")
+    @JsonManagedReference
     private Set<UsuarioRol> usuarioRoles = new HashSet<>();
+
 
     @OneToMany(mappedBy = "usuarioTransacciones", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaccion> transacciones = new ArrayList<>();
@@ -55,6 +58,10 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UsuarioLogro> usuarioLogro = new HashSet<>();
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<UsuarioTrofeo> usuarioTrofeo = new HashSet<>();
 
     @OneToMany(mappedBy = "usuarioMetas", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Meta> metas = new HashSet<>();

@@ -8,7 +8,9 @@ import com.example.restapp.GestorFinanciero.service.IRolService;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class RolService extends GenericService<Rol, Integer> implements IRolService {
     private final RolRepo repo;

@@ -21,7 +21,7 @@ public class Transaccion {
     private Float Monto;
     @Column(nullable = false)
     private LocalDate fechaTransaccion;
-    @Column(nullable = false)
+    @Column(nullable = false,  length = 300 )
     private String descripcion;
 
     @ManyToOne

@@ -6,7 +6,9 @@ import com.example.restapp.GestorFinanciero.repo.PresupuestoRepo;
 import com.example.restapp.GestorFinanciero.service.IPresupuestoService;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class PresupuestoService extends GenericService<Presupuesto, Integer> implements IPresupuestoService {
     private final PresupuestoRepo repo;

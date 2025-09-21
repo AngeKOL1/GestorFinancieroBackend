@@ -18,7 +18,8 @@ import java.time.LocalDate;
 public class UsuarioRol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idUsuarioRol;@ManyToOne
+    private Integer idUsuarioRol;
+    @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 

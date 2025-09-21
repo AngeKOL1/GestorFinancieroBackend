@@ -6,7 +6,9 @@ import com.example.restapp.GestorFinanciero.repo.NivelUsuarioRepo;
 import com.example.restapp.GestorFinanciero.service.INivelUsuarioService;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class NivelUsuarioService extends GenericService<NivelUsuario, Integer> implements INivelUsuarioService {
     private final NivelUsuarioRepo repo;

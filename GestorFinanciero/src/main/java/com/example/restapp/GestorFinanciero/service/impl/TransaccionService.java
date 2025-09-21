@@ -5,7 +5,9 @@ import com.example.restapp.GestorFinanciero.repo.IGenericRepo;
 import com.example.restapp.GestorFinanciero.repo.TransaccionRepo;
 import com.example.restapp.GestorFinanciero.service.ITransaccionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class TransaccionService extends GenericService<Transaccion, Integer> implements ITransaccionService {
     private final TransaccionRepo repo;

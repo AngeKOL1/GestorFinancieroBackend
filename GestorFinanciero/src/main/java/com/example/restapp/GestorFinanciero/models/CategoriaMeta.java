@@ -19,7 +19,7 @@ public class CategoriaMeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCategoriaMeta;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 80)
     private String nombre;
     //Posible nueva tabla
     @Column(nullable = false)

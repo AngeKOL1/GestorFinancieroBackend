@@ -21,9 +21,9 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Integer idRol;
-    @Column
+    @Column(nullable = false, length = 50)
     private String nombre;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 250)
     private String descripcion;
 
     //Cambiar a muchos a muchos

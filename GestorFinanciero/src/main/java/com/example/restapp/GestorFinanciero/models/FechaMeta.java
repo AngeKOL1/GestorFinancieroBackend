@@ -17,11 +17,11 @@ public class FechaMeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idFechaMeta;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String mes;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String dia;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String hora;
     @Column(nullable = false)
     private LocalDate fechaTotal;
