@@ -1,6 +1,8 @@
 package com.example.restapp.GestorFinanciero.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,10 +18,13 @@ import java.util.List;
 @Entity
 @Table(name = "niveles_usuario")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idNivel")
 public class NivelUsuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Integer idNivel;
+
     @Column(nullable = false)
     private Integer nivelActual;
     @Column(nullable = false)
@@ -31,8 +36,6 @@ public class NivelUsuario {
     @Column(nullable = false, length = 500)
     private String banner;
 
-    //Un nivel puede tener varios usuarios los cuales tengan el mismo nivel
     @OneToMany(mappedBy = "nivelUsuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<Usuario> usuarios = new ArrayList<>();
 }

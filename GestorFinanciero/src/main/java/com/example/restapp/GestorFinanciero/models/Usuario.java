@@ -1,6 +1,9 @@
 package com.example.restapp.GestorFinanciero.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,11 +22,12 @@ import java.util.Set;
 @Entity
 @Table(name = "usuarios")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Integer id;
+
     @Column(nullable = false, length = 100)
     private String correo;
     @Column(nullable = false, length = 200)
@@ -39,13 +43,10 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "nivelUsuario_id", nullable = false)
-    @JsonManagedReference
     private NivelUsuario nivelUsuario;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "usuario")
-    @JsonManagedReference
     private Set<UsuarioRol> usuarioRoles = new HashSet<>();
-
 
     @OneToMany(mappedBy = "usuarioTransacciones", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaccion> transacciones = new ArrayList<>();
@@ -60,7 +61,6 @@ public class Usuario {
     private Set<UsuarioLogro> usuarioLogro = new HashSet<>();
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private Set<UsuarioTrofeo> usuarioTrofeo = new HashSet<>();
 
     @OneToMany(mappedBy = "usuarioMetas", cascade = CascadeType.ALL, orphanRemoval = true)
