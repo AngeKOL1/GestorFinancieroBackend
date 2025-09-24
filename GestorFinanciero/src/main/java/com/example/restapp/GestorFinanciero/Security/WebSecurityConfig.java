@@ -57,7 +57,6 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/meta/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/niveles/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/trofeos/**").authenticated()
-                        .requestMatchers("/usuarios/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
