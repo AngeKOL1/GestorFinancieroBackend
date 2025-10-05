@@ -52,10 +52,10 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/usuarios/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/usuarios/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/usuarios/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/meta/**").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/niveles/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/niveles/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/trofeos/**").authenticated()
                         .requestMatchers("/usuarios/**").authenticated()
                         .anyRequest().authenticated()

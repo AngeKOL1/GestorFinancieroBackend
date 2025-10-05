@@ -37,4 +37,10 @@ public class Presupuesto {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuarioPresupuesto;
 
+    @OneToOne
+    @JoinColumn(name = "meta_id", nullable = false)
+    private Meta meta;
+
+
+
 }

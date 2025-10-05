@@ -7,6 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,4 +30,7 @@ public class Transaccion {
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuarioTransacciones;
+
+    @OneToMany(mappedBy = "transaccion", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<MetaTransaccion> metaTransaccion = new HashSet<>();
 }
