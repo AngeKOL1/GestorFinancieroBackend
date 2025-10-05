@@ -33,4 +33,8 @@ public class Transaccion {
 
     @OneToMany(mappedBy = "transaccion", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<MetaTransaccion> metaTransaccion = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "tipoTransaccion_id", nullable = false)
+    private TipoTransaccion tipoTransaccion;
 }

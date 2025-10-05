@@ -54,4 +54,7 @@ public class Meta {
     @OneToOne(mappedBy = "meta", cascade = CascadeType.ALL, orphanRemoval = true)
     private TipoMeta tipoMeta;
 
+    @OneToMany(mappedBy = "meta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<MisCategoriasMetas> misCategoriasMetas = new HashSet<>();
+
 }

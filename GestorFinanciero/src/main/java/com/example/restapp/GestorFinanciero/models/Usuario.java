@@ -65,4 +65,7 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuarioMetas", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Meta> metas = new HashSet<>();
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MisCategoriasMetas> misCategoriasMetas = new ArrayList<>();
 }

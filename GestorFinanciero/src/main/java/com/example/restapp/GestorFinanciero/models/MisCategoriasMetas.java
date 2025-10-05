@@ -6,27 +6,29 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "categoriaMetas")
+@Table(name="miscategoriasmetas")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class CategoriaMeta {
+public class MisCategoriasMetas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCategoriaMeta;
-    @Column(nullable = false, length = 80)
+    private Integer idMisCategoriasMetas;
+    @Column(nullable = false, length = 40)
     private String nombre;
-    @Column(nullable = false, length = 200)
+    @Column( length = 200)
     private String descripcion;
     @Column(nullable = false)
     //Estado de uso
     private boolean estado;
 
-    @OneToMany(mappedBy = "categoriaMetas", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Meta> metas = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "meta_id")
+    private Meta meta;
 }

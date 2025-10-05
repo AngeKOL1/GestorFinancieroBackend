@@ -29,9 +29,7 @@ public class Presupuesto {
     private LocalDate fechaInicial;
     @Column(nullable = false)
     private LocalDate fechaFinal;
-    @Column(nullable = false)
-    //Puede considerarse otra tabla
-    private String estado;
+
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
@@ -41,6 +39,8 @@ public class Presupuesto {
     @JoinColumn(name = "meta_id", nullable = false)
     private Meta meta;
 
-
+    @ManyToOne
+    @JoinColumn(name = "estadopresupuesto_id", nullable = false)
+    private EstadoPresupuesto estadoPresupuesto;
 
 }
