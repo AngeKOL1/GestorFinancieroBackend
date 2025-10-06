@@ -53,6 +53,10 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(req -> req
                         .requestMatchers("/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/usuarios/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/transacciones/**").hasAuthority("USUARIO")
+                        .requestMatchers(HttpMethod.POST, "/transacciones/**").hasAuthority("USUARIO")
+                        .requestMatchers(HttpMethod.POST, "/metas/*/metas/**").hasAuthority("USUARIO")
+                        .requestMatchers(HttpMethod.GET, "/metas/**").hasAuthority("USUARIO")
                         .requestMatchers(HttpMethod.POST, "/usuarios/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/meta/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/niveles/**").authenticated()

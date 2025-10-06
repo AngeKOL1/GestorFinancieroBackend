@@ -1,5 +1,6 @@
 package com.example.restapp.GestorFinanciero.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +20,7 @@ import java.util.Set;
 public class Transaccion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idTransacción;
+    private Integer idTransaccion;
     @Column(nullable = false)
     private Float Monto;
     @Column(nullable = false)
@@ -32,6 +33,7 @@ public class Transaccion {
     private Usuario usuarioTransacciones;
 
     @OneToMany(mappedBy = "transaccion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Set<MetaTransaccion> metaTransaccion = new HashSet<>();
 
     @ManyToOne

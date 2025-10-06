@@ -11,24 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "categoriaMetas")
+@Table(name="estadoMeta")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class CategoriaMeta {
+public class EstadoMeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCategoriaMeta;
-    @Column(nullable = false, length = 80)
-    private String nombre;
-    @Column(nullable = false, length = 200)
-    private String descripcion;
-    @Column(nullable = false)
-    //Estado de uso
-    private boolean estado;
+    private Integer idEstadoMeta;
+    @Column(nullable = false, length = 20)
+    //[Completada, En curso, Abandonada]
+    private String nombreEstadoMeta;
+    @Column(nullable = false, length = 100)
+    private String descripcionEstadoMeta;
 
-    @OneToMany(mappedBy = "categoriaMetas", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "estadoMeta", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Meta> metas = new ArrayList<>();
+    private List<Meta> meta = new ArrayList<>();
 }

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -24,21 +26,16 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
-        Usuario user = repo.findByCorreo(correo)
-                .orElseThrow(() -> new UsernameNotFoundException("Correo not found: " + correo));
+        Usuario usuario = repo.findByCorreoFetchRoles(correo)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        user.getUsuarioRoles().forEach(usuarioRol -> {
-            Rol rol = usuarioRol.getRol();
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + rol.getNombre()));
-        });
+        List<GrantedAuthority> authorities = usuario.getUsuarioRoles().stream()
+                .map(ur -> new SimpleGrantedAuthority(ur.getRol().getNombre()))
+                .collect(Collectors.toList());
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getCorreo(),
-                user.getContrasena(),
-                authorities
-        );
+        return new User(usuario.getCorreo(), usuario.getContrasena(), authorities);
     }
+
 
 
 }

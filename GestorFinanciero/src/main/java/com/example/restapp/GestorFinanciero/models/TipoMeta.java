@@ -1,10 +1,14 @@
 package com.example.restapp.GestorFinanciero.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //Es como los roles de las metas
 @Data
@@ -24,7 +28,7 @@ public class TipoMeta {
     @Column(nullable = false, length = 100)
     private String descripcionTipoMeta;
 
-    @OneToOne
-    @JoinColumn(name = "meta_id", nullable = false)
-    private Meta meta;
+    @OneToMany(mappedBy = "tipoMeta", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Meta> meta = new ArrayList<>();
 }

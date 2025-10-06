@@ -1,10 +1,14 @@
 package com.example.restapp.GestorFinanciero.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -28,7 +32,7 @@ public class MisCategoriasMetas {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "meta_id")
-    private Meta meta;
+    @OneToMany(mappedBy = "misCategoriaMeta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Meta> metas = new ArrayList<>();
 }

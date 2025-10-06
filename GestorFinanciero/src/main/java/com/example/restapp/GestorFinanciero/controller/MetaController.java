@@ -1,19 +1,16 @@
 package com.example.restapp.GestorFinanciero.controller;
 
+import com.example.restapp.GestorFinanciero.DTO.CrearMetaDTO;
 import com.example.restapp.GestorFinanciero.models.Meta;
-import com.example.restapp.GestorFinanciero.models.Rol;
 import com.example.restapp.GestorFinanciero.service.IMetaService;
-import com.example.restapp.GestorFinanciero.service.IRolService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/meta")
+@RequestMapping("/metas")
 @CrossOrigin("*")
 @RequiredArgsConstructor
 public class MetaController {
@@ -24,13 +21,12 @@ public class MetaController {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @PostMapping
-    public ResponseEntity<Meta> save(@RequestBody Meta meta) throws Exception {
-        Meta obj = service.save(meta);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(obj.getIdMeta()).toUri();
-        return ResponseEntity.created(location).body(obj);
+    @PostMapping("/{idUsuario}/metas")
+    public ResponseEntity<Meta> crearMeta(@PathVariable Integer idUsuario,
+                                          @RequestBody CrearMetaDTO dto) throws Exception {
+        dto.setIdUsuario(idUsuario);
+        Meta meta = service.crearMetaDTO(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(meta);
     }
+
 }

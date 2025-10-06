@@ -25,7 +25,7 @@ public class UsuarioService extends GenericService<Usuario, Integer> implements 
     @Override
     public Usuario save(Usuario usuario) {
 
-        //  Asignar rol por defecto (ej: "USUARIO")
+        //  Asignar rol por defecto
         Rol rolUsuario = rolRepo.findByNombre("USUARIO")
                 .orElseThrow(() -> new RuntimeException("Rol USUARIO no encontrado"));
 

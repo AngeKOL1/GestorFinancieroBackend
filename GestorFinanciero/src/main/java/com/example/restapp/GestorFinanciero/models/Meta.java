@@ -1,5 +1,7 @@
 package com.example.restapp.GestorFinanciero.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,38 +25,55 @@ public class Meta {
     @Column(nullable = false, length = 50)
     private String nombre;
     @Column(nullable = false)
-    private Float montoActual;
+    private double montoActual;
     @Column(nullable = false)
     private Float montoObjetivo;
     @Column(nullable = false)
     private LocalDate fechaInicial;
     @Column(nullable = false)
     private LocalDate fechaFinal;
-    @Column(nullable = false)
-    //Puede considerarse otra tabla
-    private String Estado;
 
+
+    //Prioridad
     @ManyToOne
     @JoinColumn(name = "categoriaMeta_id", nullable = false)
+    @JsonBackReference
     private CategoriaMeta categoriaMetas;
 
+    //Prioridad
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonBackReference
     private Usuario usuarioMetas;
 
+    //Prioridad
     @OneToOne(mappedBy = "meta", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private FechaMeta fechaMeta;
 
+
     @OneToMany(mappedBy = "meta", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Set<MetaTransaccion> metaTransaccion = new HashSet<>();
 
     @OneToOne(mappedBy = "meta", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Presupuesto presupuesto;
-
-    @OneToOne(mappedBy = "meta", cascade = CascadeType.ALL, orphanRemoval = true)
+    //Prioridad
+    @ManyToOne
+    @JoinColumn(name = "tipo_meta_id", nullable = false)
+    @JsonBackReference
     private TipoMeta tipoMeta;
 
-    @OneToMany(mappedBy = "meta", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<MisCategoriasMetas> misCategoriasMetas = new HashSet<>();
+    //Prioridad
+    @ManyToOne
+    @JoinColumn(name = "misCategoriaMeta_id", nullable = true)
+    @JsonBackReference
+    private MisCategoriasMetas misCategoriaMeta;
+
+    @ManyToOne
+    @JoinColumn(name = "estadoMeta_id", nullable = false)
+    @JsonBackReference
+    private EstadoMeta estadoMeta;
 
 }

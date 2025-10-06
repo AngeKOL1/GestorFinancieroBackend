@@ -64,6 +64,7 @@ public class Usuario {
     private Set<UsuarioTrofeo> usuarioTrofeo = new HashSet<>();
 
     @OneToMany(mappedBy = "usuarioMetas", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Set<Meta> metas = new HashSet<>();
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
