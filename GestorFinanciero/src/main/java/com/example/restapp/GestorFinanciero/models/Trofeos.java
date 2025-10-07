@@ -1,15 +1,13 @@
 package com.example.restapp.GestorFinanciero.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.modelmapper.internal.bytebuddy.dynamic.loading.InjectionClassLoader;
+
 
 import java.util.HashSet;
 import java.util.Set;

@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,9 +24,11 @@ public class UsuarioLogro {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonBackReference(value = "usuario-logros")
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "logro_id", nullable = false)
+    @JsonBackReference(value = "logro-usuarios")
     private Logro logro;
 }

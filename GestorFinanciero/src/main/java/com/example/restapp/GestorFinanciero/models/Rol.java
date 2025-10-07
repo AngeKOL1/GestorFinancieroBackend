@@ -2,7 +2,7 @@ package com.example.restapp.GestorFinanciero.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,5 +31,6 @@ public class Rol {
     private String descripcion;
 
     @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "rol-usuarioRoles")
     private Set<UsuarioRol> usuarioRoles = new HashSet<>();
 }

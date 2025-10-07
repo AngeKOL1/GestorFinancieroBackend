@@ -1,15 +1,16 @@
 package com.example.restapp.GestorFinanciero.controller;
 
+import com.example.restapp.GestorFinanciero.DTO.UsuarioRegistroDTO;
 import com.example.restapp.GestorFinanciero.models.Usuario;
 import com.example.restapp.GestorFinanciero.service.IUsuarioService;
-import com.example.restapp.GestorFinanciero.service.impl.UsuarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
+import java.util.Map;
 @RestController
 @RequestMapping("/usuarios")
 @RequiredArgsConstructor
@@ -26,13 +27,15 @@ public class UsuarioController {
         Usuario obj =  service.findById(id);
         return ResponseEntity.ok(obj);
     }
-    @PostMapping
-    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario) throws Exception{
-        Usuario obj =  service.save(usuario);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(location).build();
+    @PostMapping("/registro")
+    public ResponseEntity<?> registrarUsuario(@Valid @RequestBody UsuarioRegistroDTO dto) {
+        try {
+            Usuario nuevo = service.registrarUsuario(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(Map.of("error", e.getMessage()));
+        }
     }
 }

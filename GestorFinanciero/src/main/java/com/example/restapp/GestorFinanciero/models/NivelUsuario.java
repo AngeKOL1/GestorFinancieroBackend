@@ -37,5 +37,6 @@ public class NivelUsuario {
     private String banner;
 
     @OneToMany(mappedBy = "nivelUsuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "nivelUsuario-usuarios")
     private List<Usuario> usuarios = new ArrayList<>();
 }

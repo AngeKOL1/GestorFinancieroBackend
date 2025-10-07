@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,5 +30,6 @@ public class Logro {
     private String urlIcono;
 
     @OneToMany(mappedBy = "logro", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Set<UsuarioLogro> usuarioLogro = new HashSet<>();
 }

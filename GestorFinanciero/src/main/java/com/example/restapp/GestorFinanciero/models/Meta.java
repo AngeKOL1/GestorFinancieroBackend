@@ -37,43 +37,43 @@ public class Meta {
     //Prioridad
     @ManyToOne
     @JoinColumn(name = "categoriaMeta_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "categoriaMeta-metas")
     private CategoriaMeta categoriaMetas;
 
     //Prioridad
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "usuario-metas")
     private Usuario usuarioMetas;
 
     //Prioridad
     @OneToOne(mappedBy = "meta", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "meta-fechaMeta")
     private FechaMeta fechaMeta;
 
 
     @OneToMany(mappedBy = "meta", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "meta-metaTransaccion")
     private Set<MetaTransaccion> metaTransaccion = new HashSet<>();
 
     @OneToOne(mappedBy = "meta", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "meta-presupuesto")
     private Presupuesto presupuesto;
     //Prioridad
     @ManyToOne
     @JoinColumn(name = "tipo_meta_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "tipoMeta-metas")
     private TipoMeta tipoMeta;
 
     //Prioridad
     @ManyToOne
     @JoinColumn(name = "misCategoriaMeta_id", nullable = true)
-    @JsonBackReference
+    @JsonBackReference(value = "misCategoriaMeta-metas")
     private MisCategoriasMetas misCategoriaMeta;
 
     @ManyToOne
     @JoinColumn(name = "estadoMeta_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "estadoMeta-metas")
     private EstadoMeta estadoMeta;
 
 }

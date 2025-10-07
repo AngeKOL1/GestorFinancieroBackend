@@ -1,5 +1,6 @@
 package com.example.restapp.GestorFinanciero.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,10 +31,11 @@ public class Transaccion {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonBackReference(value = "usuario-transacciones")
     private Usuario usuarioTransacciones;
 
     @OneToMany(mappedBy = "transaccion", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "transaccion-metaTransaccion")
     private Set<MetaTransaccion> metaTransaccion = new HashSet<>();
 
     @ManyToOne

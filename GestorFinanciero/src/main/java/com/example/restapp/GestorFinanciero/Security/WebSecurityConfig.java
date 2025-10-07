@@ -57,7 +57,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/transacciones/**").hasAuthority("USUARIO")
                         .requestMatchers(HttpMethod.POST, "/metas/*/metas/**").hasAuthority("USUARIO")
                         .requestMatchers(HttpMethod.GET, "/metas/**").hasAuthority("USUARIO")
-                        .requestMatchers(HttpMethod.POST, "/usuarios/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/usuarios/registro").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/meta/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/niveles/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/trofeos/**").authenticated()

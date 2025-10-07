@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,10 +25,12 @@ public class UsuarioRol {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonBackReference(value = "usuario-roles")
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "rol_id", nullable = false)
+    @JsonBackReference
     private Rol rol;
 
     private LocalDate fechaAsignacion;

@@ -2,12 +2,9 @@ package com.example.restapp.GestorFinanciero.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
-import org.modelmapper.internal.bytebuddy.dynamic.loading.InjectionClassLoader;
-
 import java.time.LocalDate;
 
 @Data
@@ -27,9 +24,11 @@ public class UsuarioTrofeo {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonBackReference(value = "usuario-trofeos")
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "trofeo_id", nullable = false)
+    @JsonBackReference(value = "trofeo-usuarios")
     private Trofeos trofeo;
 }

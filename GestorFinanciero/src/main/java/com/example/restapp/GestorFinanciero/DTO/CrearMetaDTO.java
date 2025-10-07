@@ -1,6 +1,5 @@
 package com.example.restapp.GestorFinanciero.DTO;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
