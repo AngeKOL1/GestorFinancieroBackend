@@ -1,9 +1,7 @@
 package com.example.restapp.GestorFinanciero.controller;
 
 import com.example.restapp.GestorFinanciero.models.NivelUsuario;
-import com.example.restapp.GestorFinanciero.models.Usuario;
 import com.example.restapp.GestorFinanciero.service.INivelUsuarioService;
-import com.example.restapp.GestorFinanciero.service.IUsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

@@ -1,8 +1,6 @@
 package com.example.restapp.GestorFinanciero.controller;
 
-import com.example.restapp.GestorFinanciero.models.Rol;
 import com.example.restapp.GestorFinanciero.models.Transaccion;
-import com.example.restapp.GestorFinanciero.service.IRolService;
 import com.example.restapp.GestorFinanciero.service.ITransaccionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

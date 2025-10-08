@@ -4,7 +4,6 @@ import com.example.restapp.GestorFinanciero.models.NivelUsuario;
 import com.example.restapp.GestorFinanciero.repo.IGenericRepo;
 import com.example.restapp.GestorFinanciero.repo.NivelUsuarioRepo;
 import com.example.restapp.GestorFinanciero.service.INivelUsuarioService;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

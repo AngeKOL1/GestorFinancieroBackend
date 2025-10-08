@@ -4,7 +4,6 @@ import com.example.restapp.GestorFinanciero.models.Presupuesto;
 import com.example.restapp.GestorFinanciero.repo.IGenericRepo;
 import com.example.restapp.GestorFinanciero.repo.PresupuestoRepo;
 import com.example.restapp.GestorFinanciero.service.IPresupuestoService;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

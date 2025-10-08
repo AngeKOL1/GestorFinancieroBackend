@@ -1,7 +1,6 @@
 package com.example.restapp.GestorFinanciero.repo;
 
 import com.example.restapp.GestorFinanciero.models.Usuario;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

@@ -8,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -71,7 +69,7 @@ public class MetaService extends GenericService<Meta, Integer> implements IMetaS
         meta.setEstadoMeta(estado);
 
         meta.setMetaTransaccion(new HashSet<>()); // vacío por defecto
-        meta.setPresupuesto(null); // aún no tiene presupuesto
+        meta.setPresupuesto(null); 
 
 
         return repo.save(meta);

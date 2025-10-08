@@ -1,9 +1,7 @@
 package com.example.restapp.GestorFinanciero.controller;
 
-import com.example.restapp.GestorFinanciero.models.Rol;
 import com.example.restapp.GestorFinanciero.models.Trofeos;
 import com.example.restapp.GestorFinanciero.service.ITrofeoService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

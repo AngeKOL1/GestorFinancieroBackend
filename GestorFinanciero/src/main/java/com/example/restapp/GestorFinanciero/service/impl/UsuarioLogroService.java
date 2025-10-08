@@ -1,6 +1,5 @@
 package com.example.restapp.GestorFinanciero.service.impl;
 
-import com.example.restapp.GestorFinanciero.models.Usuario;
 import com.example.restapp.GestorFinanciero.models.UsuarioLogro;
 import com.example.restapp.GestorFinanciero.repo.IGenericRepo;
 import com.example.restapp.GestorFinanciero.repo.UsuarioLogroRepo;

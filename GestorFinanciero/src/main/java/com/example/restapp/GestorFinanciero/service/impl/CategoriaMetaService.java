@@ -4,7 +4,6 @@ import com.example.restapp.GestorFinanciero.models.CategoriaMeta;
 import com.example.restapp.GestorFinanciero.repo.CategoriaMetaRepo;
 import com.example.restapp.GestorFinanciero.repo.IGenericRepo;
 import com.example.restapp.GestorFinanciero.service.ICategoriaMetaService;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

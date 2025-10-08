@@ -1,10 +1,8 @@
 package com.example.restapp.GestorFinanciero.controller;
 
 import com.example.restapp.GestorFinanciero.models.Rol;
-import com.example.restapp.GestorFinanciero.models.Usuario;
 import com.example.restapp.GestorFinanciero.service.IRolService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

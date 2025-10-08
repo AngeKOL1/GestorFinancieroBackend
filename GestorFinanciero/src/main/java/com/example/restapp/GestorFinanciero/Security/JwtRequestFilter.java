@@ -28,30 +28,31 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         final String header = request.getHeader("Authorization");
-
         String correo = null;
         String jwtToken = null;
 
         if (header != null && header.startsWith("Bearer ")) {
-            final int TOKEN_POSITION = 7;
-            jwtToken = header.substring(TOKEN_POSITION);
-
+            jwtToken = header.substring(7);
             try {
                 correo = jwtTokenUtil.getUsernameFromToken(jwtToken);
+
+                // 👇 Guardar el idUsuario directamente en la request
+                Integer idUsuario = jwtTokenUtil.getIdUsuarioFromToken(jwtToken);
+                if (idUsuario != null) {
+                    request.setAttribute("authenticatedUserId", idUsuario);
+                }
+
             } catch (Exception e) {
-                request.setAttribute("msg", e.getMessage());
+                request.setAttribute("jwtError", e.getMessage());
             }
         }
 
-        // Solo si hay correo y aún no hay autenticación en el contexto
         if (correo != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(correo);
 
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken auth =
-                        new UsernamePasswordAuthenticationToken(
-                                userDetails, null, userDetails.getAuthorities()
-                        );
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
