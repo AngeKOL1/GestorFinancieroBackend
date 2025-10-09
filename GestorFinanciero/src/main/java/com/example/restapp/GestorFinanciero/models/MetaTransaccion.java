@@ -28,6 +28,4 @@ public class MetaTransaccion {
     @JsonBackReference
     private Transaccion transaccion;
 
-
-
 }
