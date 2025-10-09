@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -73,6 +74,11 @@ public class MetaService extends GenericService<Meta, Integer> implements IMetaS
 
 
         return repo.save(meta);
+    }
+
+   @Override
+    public List<Meta> listarMetasPorUsuario(Integer idUsuario) throws Exception {
+        return repo.findByUsuarioMetas_Id(idUsuario);
     }
 
 }

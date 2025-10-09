@@ -1,5 +1,6 @@
 package com.example.restapp.GestorFinanciero.controller;
 
+import com.example.restapp.GestorFinanciero.DTO.EditarTransaccionDTO;
 import com.example.restapp.GestorFinanciero.DTO.TransaccionDTO;
 import com.example.restapp.GestorFinanciero.models.Transaccion;
 import com.example.restapp.GestorFinanciero.service.ITransaccionService;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/transacciones")
@@ -34,5 +36,17 @@ public class TransaccionController {
 
             Transaccion transaccion = service.CrearTransaccionDTO(dto);
             return ResponseEntity.status(HttpStatus.CREATED).body(transaccion);
+    }
+   @PutMapping("/{id}")
+    public ResponseEntity<?> actualizarTransaccion(
+            @PathVariable Integer id,
+            @RequestBody EditarTransaccionDTO transaccion,
+            HttpServletRequest request) throws Exception {
+
+        Integer authenticatedUserId = (Integer) request.getAttribute("authenticatedUserId");
+
+        Transaccion transaccionActualizada = service.updateTransaccion(id, authenticatedUserId, transaccion);
+
+        return ResponseEntity.ok(transaccionActualizada);
     }
 }

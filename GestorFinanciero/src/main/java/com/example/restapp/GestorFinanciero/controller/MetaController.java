@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/metas")
 @CrossOrigin("*")
@@ -22,6 +23,13 @@ public class MetaController {
     public ResponseEntity<List<Meta>> findAll() throws Exception {
         return ResponseEntity.ok(service.findAll());
     }
+    @GetMapping("/misMetas")
+    public ResponseEntity<List<Meta>> findAllForUser( HttpServletRequest request) throws Exception {
+        Integer authenticatedUserId = (Integer) request.getAttribute("authenticatedUserId");
+        List<Meta> metas = service.listarMetasPorUsuario(authenticatedUserId);
+        return ResponseEntity.ok(metas);
+    }
+    
 
     @PostMapping
     public ResponseEntity<Meta> crearMeta(@RequestBody CrearMetaDTO dto,
@@ -32,5 +40,5 @@ public class MetaController {
             Meta meta = service.crearMetaDTO(dto);
             return ResponseEntity.status(HttpStatus.CREATED).body(meta);
         }
-
+    
 }

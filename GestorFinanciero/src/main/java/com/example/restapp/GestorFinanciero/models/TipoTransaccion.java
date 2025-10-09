@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +28,7 @@ public class TipoTransaccion {
     private String descripcionTipoTransaccion;
 
     @OneToMany(mappedBy = "tipoTransaccion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "tipoTransaccion-transacciones")
     private List<Transaccion> transacciones = new ArrayList<>();
 
 }

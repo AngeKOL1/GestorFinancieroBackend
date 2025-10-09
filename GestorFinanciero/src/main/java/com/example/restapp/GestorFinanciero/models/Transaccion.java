@@ -40,5 +40,6 @@ public class Transaccion {
 
     @ManyToOne
     @JoinColumn(name = "tipoTransaccion_id", nullable = false)
+    @JsonBackReference(value = "tipoTransaccion-transacciones")
     private TipoTransaccion tipoTransaccion;
 }
