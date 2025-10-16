@@ -33,12 +33,8 @@ public class LoginController {
         authenticate(req.getCorreo(), req.getPassword());
 
         final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(req.getCorreo());
-
-        // ✅ Buscar el ID real del usuario
         Usuario usuario = usuarioRepo.findByCorreo(req.getCorreo())
                 .orElseThrow(() -> new Exception("Usuario no encontrado"));
-
-        // ✅ Generar token con idUsuario
         final String token = jwtTokenUtil.generateToken(userDetails, usuario.getId());
 
         return ResponseEntity.ok(new JwtResponse(token));

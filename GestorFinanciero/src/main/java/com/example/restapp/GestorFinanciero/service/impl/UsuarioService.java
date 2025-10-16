@@ -5,6 +5,9 @@ import com.example.restapp.GestorFinanciero.models.*;
 import com.example.restapp.GestorFinanciero.repo.*;
 import com.example.restapp.GestorFinanciero.service.IUsuarioService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,6 +22,9 @@ public class UsuarioService extends GenericService<Usuario, Integer> implements 
     private final RolRepo rolRepo;
     private final NivelUsuarioRepo nivelUsuarioRepo;
     private final TrofeoRepo trofeoRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     protected IGenericRepo<Usuario, Integer> getRepo() {
@@ -67,7 +73,7 @@ public class UsuarioService extends GenericService<Usuario, Integer> implements 
         return usuarioRepo.save(usuario);
     }
 
-    @Override
+   @Override
     public Usuario registrarUsuario(UsuarioRegistroDTO dto) {
 
         if (!dto.getContrasena().equals(dto.getConfirmPassword())) {
@@ -79,12 +85,16 @@ public class UsuarioService extends GenericService<Usuario, Integer> implements 
         }
 
         Usuario usuario = new Usuario();
+
         usuario.setCorreo(dto.getCorreo());
-        usuario.setContrasena(dto.getContrasena()); 
         usuario.setNombre(dto.getNombre());
         usuario.setApellido(dto.getApellido());
         usuario.setFechaRegistro(LocalDate.now());
         usuario.setUltConexion(LocalDate.now());
+
+        // 🔐 Primero tomamos la contraseña del DTO y la encriptamos
+        String passwordEncriptada = passwordEncoder.encode(dto.getContrasena());
+        usuario.setContrasena(passwordEncriptada);
 
         usuario.setUsuarioRoles(new HashSet<>());
         usuario.setTransacciones(new ArrayList<>());
@@ -97,5 +107,6 @@ public class UsuarioService extends GenericService<Usuario, Integer> implements 
 
         return save(usuario);
     }
+
 
 }
