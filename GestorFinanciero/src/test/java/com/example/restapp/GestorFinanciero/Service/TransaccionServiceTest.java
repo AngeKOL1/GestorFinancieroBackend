@@ -1,14 +1,8 @@
 package com.example.restapp.GestorFinanciero.Service;
 
 import com.example.restapp.GestorFinanciero.DTO.TransaccionDTO;
-import com.example.restapp.GestorFinanciero.models.Meta;
-import com.example.restapp.GestorFinanciero.models.TipoTransaccion;
-import com.example.restapp.GestorFinanciero.models.Transaccion;
-import com.example.restapp.GestorFinanciero.models.Usuario;
-import com.example.restapp.GestorFinanciero.repo.MetaRepo;
-import com.example.restapp.GestorFinanciero.repo.TipoTransaccionRepo;
-import com.example.restapp.GestorFinanciero.repo.TransaccionRepo;
-import com.example.restapp.GestorFinanciero.repo.UsuarioRepo;
+import com.example.restapp.GestorFinanciero.models.*;
+import com.example.restapp.GestorFinanciero.repo.*;
 import com.example.restapp.GestorFinanciero.service.impl.TransaccionService;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,12 +13,11 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
 import java.util.Optional;
-import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class TransaccionServiceImplTest {
+class TransaccionServiceTest {
 
     @Mock
     private UsuarioRepo usuarioRepo;
@@ -52,7 +45,7 @@ class TransaccionServiceImplTest {
 
         tipoTransaccion = new TipoTransaccion();
         tipoTransaccion.setIdTipoTransaccion(2);
-        
+
         meta = new Meta();
         meta.setIdMeta(3);
         meta.setUsuarioMetas(usuario);
@@ -70,16 +63,16 @@ class TransaccionServiceImplTest {
         when(usuarioRepo.findById(1)).thenReturn(Optional.of(usuario));
         when(tipoTransaccionRepo.findById(2)).thenReturn(Optional.of(tipoTransaccion));
         when(metaRepo.findById(3)).thenReturn(Optional.of(meta));
-        when(repo.save(any(Transaccion.class))).thenAnswer(i -> i.getArguments()[0]);
+        when(repo.save(any(Transaccion.class))).thenAnswer(i -> i.getArgument(0));
 
         Transaccion resultado = transaccionService.CrearTransaccionDTO(dto);
 
         assertNotNull(resultado);
         assertEquals(dto.getMonto(), resultado.getMonto());
         assertEquals(dto.getDescripcion(), resultado.getDescripcion());
-        assertEquals(LocalDate.now(), resultado.getFechaTransaccion(), "La fecha de la transacción debe ser hoy");
         assertEquals(usuario, resultado.getUsuarioTransacciones());
         assertEquals(tipoTransaccion, resultado.getTipoTransaccion());
+        assertEquals(LocalDate.now(), resultado.getFechaTransaccion());
         verify(repo, times(1)).save(any(Transaccion.class));
     }
 
@@ -87,11 +80,8 @@ class TransaccionServiceImplTest {
     void testCrearTransaccionDTO_UsuarioNoEncontrado() {
         when(usuarioRepo.findById(1)).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(Exception.class, () -> {
-            transaccionService.CrearTransaccionDTO(dto);
-        });
-
-        assertEquals("Usuario no encontrado", exception.getMessage());
+        Exception ex = assertThrows(Exception.class, () -> transaccionService.CrearTransaccionDTO(dto));
+        assertEquals("Usuario no encontrado", ex.getMessage());
     }
 
     @Test
@@ -99,11 +89,8 @@ class TransaccionServiceImplTest {
         when(usuarioRepo.findById(1)).thenReturn(Optional.of(usuario));
         when(tipoTransaccionRepo.findById(2)).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(Exception.class, () -> {
-            transaccionService.CrearTransaccionDTO(dto);
-        });
-
-        assertEquals("Tipo de transacción no encontrado", exception.getMessage());
+        Exception ex = assertThrows(Exception.class, () -> transaccionService.CrearTransaccionDTO(dto));
+        assertEquals("Tipo de transacción no encontrado", ex.getMessage());
     }
 
     @Test
@@ -116,10 +103,19 @@ class TransaccionServiceImplTest {
         when(tipoTransaccionRepo.findById(2)).thenReturn(Optional.of(tipoTransaccion));
         when(metaRepo.findById(3)).thenReturn(Optional.of(meta));
 
-        Exception exception = assertThrows(Exception.class, () -> {
-            transaccionService.CrearTransaccionDTO(dto);
-        });
+        Exception ex = assertThrows(Exception.class, () -> transaccionService.CrearTransaccionDTO(dto));
+        assertEquals("Usuario no autorizado para usar esta meta", ex.getMessage());
+    }
 
-        assertEquals("Usuario no autorizado para usar esta meta", exception.getMessage());
+    @Test
+    void testCrearTransaccionDTO_MontoInvalido() {
+        dto.setMonto(0f);
+
+        when(usuarioRepo.findById(1)).thenReturn(Optional.of(usuario));
+        when(tipoTransaccionRepo.findById(2)).thenReturn(Optional.of(tipoTransaccion));
+        when(metaRepo.findById(3)).thenReturn(Optional.of(meta));
+
+        Exception ex = assertThrows(Exception.class, () -> transaccionService.CrearTransaccionDTO(dto));
+        assertEquals("El monto debe ser mayor que cero", ex.getMessage());
     }
 }
